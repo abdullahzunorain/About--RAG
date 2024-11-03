@@ -1,0 +1,9 @@
+streamlit
+sentence-transformers
+groq
+PyPDF2
+torch
+ffmpeg-python
+pymupdf
+numpy==1.21.6
+faiss-cpu==1.7.3
