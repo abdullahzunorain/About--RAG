@@ -1,4 +1,18 @@
 
+# req.txt
+"""
+streamlit
+groq
+PyPDF2
+torch
+ffmpeg-python
+pymupdf
+numpy==1.21.6
+faiss-cpu==1.7.3
+sentence-transformers
+"""
+
+
 import os
 import streamlit as st
 from sentence_transformers import SentenceTransformer, util
