@@ -12,6 +12,7 @@ faiss-cpu==1.7.3
 sentence-transformers
 """
 
+# app.py
 
 import os
 import streamlit as st
