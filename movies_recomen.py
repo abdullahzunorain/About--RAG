@@ -73,7 +73,7 @@ elif theme == "Background Image":
         <style>
         .stApp {
             # background-image: url('https://raw.githubusercontent.com/abdullahzunorain/chatbot/main/ai-technology-brain-background-digital-transformation-concept.jpg');
-            background-image: url('https://raw.githubusercontent.com/abdullahzunorain/voice-to-voice-Chatbot/refs/heads/main/9117392.jpg');
+            background-image: url('https://raw.githubusercontent.com/abdullahzunorain/voice-to-voice-Chatbot/refs/heads/main/cartoon-ai-robot-character-scene.jpg');
             background-size: cover;
             background-position: center;
             height: 100vh;
