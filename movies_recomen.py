@@ -5,21 +5,6 @@ from groq import Groq
 # Configure Streamlit app settings
 st.set_page_config(page_title="Movie Recommendation Chatbot", layout="centered")
 
-# # Light theme background
-# st.markdown("""
-#     <style>
-#         body {
-#             background-color: #F0F2F6;
-#             color: #333;
-#         }
-#         .main {
-#             background-color: #F0F2F6;
-#             padding: 20px;
-#             border-radius: 8px;
-#         }
-#     </style>
-# """, unsafe_allow_html=True)
-
 # Title and intro with styling
 st.markdown("<h1 style='text-align: center; color: #FFB74D;'>🎬 Movie Recommendation Chatbot</h1>", unsafe_allow_html=True)
 st.markdown("<p style='text-align: center; font-size: 18px; color: #666;'>Tell me about your favorite genres, actors, or movies you enjoyed, and I'll recommend something you'll like!</p>", unsafe_allow_html=True)
@@ -54,24 +39,26 @@ if 'chat_history' not in st.session_state:
     st.session_state.chat_history = []
 
 # Streamlit UI for chatbot interaction
-user_input = st.text_input("You:", placeholder="Describe your movie preferences here...", label_visibility="collapsed")
+with st.container():
+    # Display chat history container
+    st.markdown("<div style='height: 400px; overflow-y: auto; border: 1px solid #ccc; padding: 10px; background-color: #FFFFFF; border-radius: 8px;'>", unsafe_allow_html=True)
+    for message in st.session_state.chat_history:
+        if message["role"] == "user":
+            st.markdown(f"<div style='text-align: right; padding: 8px; background-color: #4A90E2; color: white; border-radius: 10px; margin: 5px 0; display: inline-block; max-width: 75%; float: right;'>{message['content']}</div><div style='clear: both;'></div>", unsafe_allow_html=True)
+        else:
+            st.markdown(f"<div style='text-align: left; padding: 8px; background-color: #FFB74D; color: black; border-radius: 10px; margin: 5px 0; display: inline-block; max-width: 75%; float: left;'>{message['content']}</div><div style='clear: both;'></div>", unsafe_allow_html=True)
+    st.markdown("</div>", unsafe_allow_html=True)
 
-# If the user provides input, fetch a recommendation
-if user_input:
-    response = get_movie_recommendation(user_input)
-    st.session_state.chat_history.append({"role": "user", "content": user_input})
-    st.session_state.chat_history.append({"role": "bot", "content": response})
+    # Input area for user query
+    user_input = st.text_input("You:", placeholder="Describe your movie preferences here...", label_visibility="collapsed")
 
-# Display chat history without a black background
-st.markdown("<div style='height: 400px; overflow-y: auto; border: 1px solid #ccc; padding: 10px; background-color: #FFFFFF; border-radius: 8px;'>", unsafe_allow_html=True)
-for message in st.session_state.chat_history:
-    if message["role"] == "user":
-        st.markdown(f"<div style='text-align: right; padding: 8px; background-color: #4A90E2; color: white; border-radius: 10px; margin: 5px 0; display: inline-block; max-width: 75%; float: right;'>{message['content']}</div><div style='clear: both;'></div>", unsafe_allow_html=True)
-    else:
-        st.markdown(f"<div style='text-align: left; padding: 8px; background-color: #FFB74D; color: black; border-radius: 10px; margin: 5px 0; display: inline-block; max-width: 75%; float: left;'>{message['content']}</div><div style='clear: both;'></div>", unsafe_allow_html=True)
-st.markdown("</div>", unsafe_allow_html=True)
+    # If the user provides input, fetch a recommendation
+    if user_input:
+        response = get_movie_recommendation(user_input)
+        st.session_state.chat_history.append({"role": "user", "content": user_input})
+        st.session_state.chat_history.append({"role": "bot", "content": response})
 
-# Add fixed position for input area
+# Add styling for input area and send button
 st.markdown("""
     <style>
         input {
