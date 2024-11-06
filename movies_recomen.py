@@ -113,7 +113,7 @@ if submit_button and user_input:
 
 # Display recommendation history in a scrollable container
 with st.container():
-    st.markdown('<div class="recommendation-container">', unsafe_allow_html=True)
+    # st.markdown('<div class="recommendation-container">', unsafe_allow_html=True)
     for chat in st.session_state.chat_history:
         if chat['role'] == 'user':
             st.markdown(f"<div class='clearfix'><div class='user-query' style='text-align: right; padding: 8px; background-color: #4A90E2; color: white; border-radius: 10px; margin: 5px 0; display: inline-block; max-width: 75%; float: right;'>{chat['content']}</div></div>", unsafe_allow_html=True)
