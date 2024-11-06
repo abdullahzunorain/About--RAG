@@ -53,8 +53,11 @@ with st.container():
     # If the user provides input, fetch a recommendation
     if user_input:
         response = get_movie_recommendation(user_input)
-        st.session_state.chat_history.append({"role": "user", "content": user_input})
-        st.session_state.chat_history.append({"role": "bot", "content": response})
+
+        # Avoid duplicate responses
+        if not st.session_state.chat_history or st.session_state.chat_history[-1]["content"] != response:
+            st.session_state.chat_history.append({"role": "user", "content": user_input})
+            st.session_state.chat_history.append({"role": "bot", "content": response})
 
 # Set background gradient
 st.markdown(
@@ -97,29 +100,6 @@ st.markdown("""
         }
     </style>
 """, unsafe_allow_html=True)
-
-# Create a form for user movie preference input
-with st.form(key='recommendation_form', clear_on_submit=True):
-    user_input = st.text_input("You:", placeholder="Type your favorite genre, actor, or movie here...", label_visibility="collapsed")
-    submit_button = st.form_submit_button("Get Recommendation")
-
-# Process the recommendation if input is provided
-if submit_button and user_input:
-    with st.spinner("CineMate is finding recommendations..."):
-        # Mock function to get movie recommendations
-        response = get_movie_recommendation(user_input)
-        st.session_state.chat_history.append({"role": "user", "content": user_input})
-        st.session_state.chat_history.append({"role": "bot", "content": response})
-
-# Display recommendation history in a scrollable container
-with st.container():
-    # st.markdown('<div class="recommendation-container">', unsafe_allow_html=True)
-    for chat in st.session_state.chat_history:
-        if chat['role'] == 'user':
-            st.markdown(f"<div class='clearfix'><div class='user-query' style='text-align: right; padding: 8px; background-color: #4A90E2; color: white; border-radius: 10px; margin: 5px 0; display: inline-block; max-width: 75%; float: right;'>{chat['content']}</div></div>", unsafe_allow_html=True)
-        else:
-            st.markdown(f"<div class='clearfix'><div class='bot-recommendation' style='text-align: left; padding: 8px; background-color: #FFB74D; color: black; border-radius: 10px; margin: 5px 0; display: inline-block; max-width: 75%; float: left;'>{chat['content']}</div></div>", unsafe_allow_html=True)
-    st.markdown('</div>', unsafe_allow_html=True)
 
 # Position the input field statically at the bottom
 st.markdown(
