@@ -49,10 +49,10 @@ if user_input:
     st.session_state.conversation.append(('You', user_input))
     st.session_state.conversation.append(('Chatbot', response))
 
-    # Clear the input box after submission
+    # Clear the input box after submission (keeping focus on chat)
     st.text_input("You:", value="", placeholder="Describe your movie preferences here...")
 
-# Display conversation history
+# Display conversation history (Preserve previous messages)
 for speaker, message in st.session_state.conversation:
     if speaker == 'You':
         st.markdown(f'<div style="background-color:#F0F2F6; padding: 10px; border-radius: 10px; margin-bottom: 10px;">'
@@ -156,6 +156,7 @@ st.markdown('<script>window.scrollTo(0, document.body.scrollHeight);</script>', 
 if st.button("Clear Chat"):
     st.session_state.conversation.clear()  # Clears the chat history
     st.experimental_rerun()  # Rerun the app to reset chat history
+
 
 
 
