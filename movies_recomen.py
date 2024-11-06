@@ -36,7 +36,7 @@ def recommend_movie(genre):
     return recommendations.get(genre, ["No recommendations available for this genre."])
 
 # Streamlit UI
-st.title("Movie Recommendation & Chatbot")  # Set the app title
+st.title("🎬 Movie Recommendation Chatbot")  # Set the app title
 
 # Theme selection
 theme = st.selectbox(
