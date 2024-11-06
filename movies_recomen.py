@@ -5,6 +5,12 @@ from groq import Groq
 # Set up Streamlit app configuration
 st.set_page_config(page_title="🎬 CineMate: Movie Recommendation Chatbot", layout="centered")
 
+# Theme selection
+theme = st.selectbox(
+    "Select Theme:",
+    ["Default", "Gradient", "Solid Color", "Background Image"]
+)
+
 # Title and introduction with improved styling
 st.markdown("<h1 style='text-align: center; color: #FFB74D;'>🎬 CineMate: Your Movie Recommendation Bot</h1>", unsafe_allow_html=True)
 st.markdown("<p style='text-align: center; font-size: 18px; color: #666;'>Tell me about your favorite genres, actors, or movies, and I'll recommend something you'll love! 🍿</p>", unsafe_allow_html=True)
@@ -60,11 +66,6 @@ if user_input:
     st.session_state.chat_history.append({"role": "bot", "content": response})
     user_input = ""  # Clear input after submission
 
-# Theme selection
-theme = st.selectbox(
-    "Select Theme:",
-    ["Default", "Gradient", "Solid Color", "Background Image"]
-)
 
 # Theme-based styling with CSS
 if theme == "Gradient":
