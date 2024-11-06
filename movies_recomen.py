@@ -5,15 +5,15 @@ from groq import Groq
 # Configure Streamlit app settings
 st.set_page_config(page_title="Movie Recommendation Chatbot", layout="centered")
 
-# Dark theme background
+# Light theme background
 st.markdown("""
     <style>
         body {
-            background-color: #1E1E1E;
-            color: #FFFFFF;
+            background-color: #F0F2F6;
+            color: #333;
         }
         .main {
-            background-color: #1E1E1E;
+            background-color: #F0F2F6;
             padding: 20px;
             border-radius: 8px;
         }
@@ -22,7 +22,7 @@ st.markdown("""
 
 # Title and intro with styling
 st.markdown("<h1 style='text-align: center; color: #FFB74D;'>🎬 Movie Recommendation Chatbot</h1>", unsafe_allow_html=True)
-st.markdown("<p style='text-align: center; font-size: 18px; color: #D3D3D3;'>Tell me about your favorite genres, actors, or movies you enjoyed, and I'll recommend something you'll like!</p>", unsafe_allow_html=True)
+st.markdown("<p style='text-align: center; font-size: 18px; color: #666;'>Tell me about your favorite genres, actors, or movies you enjoyed, and I'll recommend something you'll like!</p>", unsafe_allow_html=True)
 
 # API key setup: Retrieve the Groq API key from environment variables
 api_key = os.getenv("GROQ_API_KEY")
@@ -62,8 +62,8 @@ if user_input:
     st.session_state.chat_history.append({"role": "user", "content": user_input})
     st.session_state.chat_history.append({"role": "bot", "content": response})
 
-# Display chat history
-st.markdown("<div style='height: 400px; overflow-y: auto; border: 1px solid #555; padding: 10px; background-color: #282828; border-radius: 8px;'>", unsafe_allow_html=True)
+# Display chat history without a black background
+st.markdown("<div style='height: 400px; overflow-y: auto; border: 1px solid #ccc; padding: 10px; background-color: #FFFFFF; border-radius: 8px;'>", unsafe_allow_html=True)
 for message in st.session_state.chat_history:
     if message["role"] == "user":
         st.markdown(f"<div style='text-align: right; padding: 8px; background-color: #4A90E2; color: white; border-radius: 10px; margin: 5px 0; display: inline-block; max-width: 75%; float: right;'>{message['content']}</div><div style='clear: both;'></div>", unsafe_allow_html=True)
@@ -80,8 +80,8 @@ st.markdown("""
             width: 100%;
             border-radius: 8px;
             border: 1px solid #ccc;
-            background-color: #2A2A2A;
-            color: #FFFFFF;
+            background-color: #FFFFFF;
+            color: #333;
         }
         .stButton button {
             font-size: 16px;
@@ -102,6 +102,10 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 st.markdown("<br>", unsafe_allow_html=True)
+
+
+
+
 
 
 
