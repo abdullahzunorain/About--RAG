@@ -7,7 +7,7 @@ st.set_page_config(page_title="Movie Recommendation Chatbot", layout="centered")
 
 # Title and intro with styling
 st.markdown("<h1 style='text-align: center; color: #FFB74D;'>🎬 Movie Recommendation Chatbot</h1>", unsafe_allow_html=True)
-st.markdown("<p style='text-align: center; font-size: 18px; color: #666;'>Tell me about your favorite genres, actors, or movies, and I'll recommend something you'll love!</p>", unsafe_allow_html=True)
+st.markdown("<p style='text-align: center; font-size: 18px; color: #666;'>Tell me about your favorite genres, actors, or movies you enjoyed, and I'll recommend something you'll like!</p>", unsafe_allow_html=True)
 
 # API key setup: Retrieve the Groq API key from environment variables
 api_key = os.getenv("GROQ_API_KEY")
@@ -24,13 +24,13 @@ def get_movie_recommendation(user_input):
         chat_completion = client.chat.completions.create(
             messages=[{
                 "role": "user",
-                "content": f"Can you recommend a movie based on this? {user_input}",
+                "content": f"I want a movie recommendation. {user_input}",
             }],
             model="llama3-8b-8192",
         )
         return chat_completion.choices[0].message.content
     except Exception as e:
-        return f"Sorry, something went wrong while fetching recommendations. Please try again later."
+        return f"An error occurred: {e}"
 
 # Store chat history in session state
 if 'chat_history' not in st.session_state:
@@ -56,65 +56,17 @@ with st.container():
         st.session_state.chat_history.append({"role": "user", "content": user_input})
         st.session_state.chat_history.append({"role": "bot", "content": response})
 
-# Theme selection
-theme = st.selectbox(
-    "Select Theme:",
-    ["Default", "Gradient", "Solid Color", "Background Image"]
-)
-
-# Set CSS based on selected theme
-if theme == "Gradient":
-    st.markdown(
-        """
-        <style>
-        .stApp {
-            background: linear-gradient(135deg, rgb(114, 194, 224), rgb(161, 196, 253));
-            height: 100vh;
-            color: black;
-        }
-        </style>
-        """, unsafe_allow_html=True)
-
-elif theme == "Solid Color":
-    st.markdown(
-        """
-        <style>
-        .stApp {
-            background-color: rgb(240, 240, 240);
-            height: 100vh;
-            color: black;
-        }
-        </style>
-        """, unsafe_allow_html=True)
-
-elif theme == "Background Image":
-    st.markdown(
-        """
-        <style>
-        .stApp {
-            background-image: url('https://raw.githubusercontent.com/abdullahzunorain/chatbot/main/ai-technology-brain-background-digital-transformation-concept.jpg');
-            background-size: cover;
-            background-position: center;
-            height: 100vh;
-            color: black;
-        }
-        .stTitle {
-            color: #FFFFFF !important;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
-        }
-        </style>
-        """, unsafe_allow_html=True)
-else:
-    st.markdown(
-        """
-        <style>
-        .stApp {
-            background-color: rgb(255, 255, 255);
-            height: 100vh;
-            color: black;
-        }
-        </style>
-        """, unsafe_allow_html=True)
+# Set background gradient
+st.markdown(
+    """
+    <style>
+    .stApp {
+        background: linear-gradient(135deg, rgb(114, 194, 224), rgb(161, 196, 253));
+        height: 100vh;
+        color: black;
+    }
+    </style>
+    """, unsafe_allow_html=True)
 
 # Add styling for input area and send button
 st.markdown("""
@@ -154,7 +106,7 @@ with st.form(key='recommendation_form', clear_on_submit=True):
 # Process the recommendation if input is provided
 if submit_button and user_input:
     with st.spinner("CineMate is finding recommendations..."):
-        # Fetch recommendation from the Groq API
+        # Mock function to get movie recommendations
         response = get_movie_recommendation(user_input)
         st.session_state.chat_history.append({"role": "user", "content": user_input})
         st.session_state.chat_history.append({"role": "bot", "content": response})
