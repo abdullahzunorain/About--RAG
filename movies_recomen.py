@@ -5,20 +5,20 @@ from groq import Groq
 # Configure Streamlit app settings
 st.set_page_config(page_title="Movie Recommendation Chatbot", layout="centered")
 
-# Light theme background
-st.markdown("""
-    <style>
-        body {
-            background-color: #F0F2F6;
-            color: #333;
-        }
-        .main {
-            background-color: #F0F2F6;
-            padding: 20px;
-            border-radius: 8px;
-        }
-    </style>
-""", unsafe_allow_html=True)
+# # Light theme background
+# st.markdown("""
+#     <style>
+#         body {
+#             background-color: #F0F2F6;
+#             color: #333;
+#         }
+#         .main {
+#             background-color: #F0F2F6;
+#             padding: 20px;
+#             border-radius: 8px;
+#         }
+#     </style>
+# """, unsafe_allow_html=True)
 
 # Title and intro with styling
 st.markdown("<h1 style='text-align: center; color: #FFB74D;'>🎬 Movie Recommendation Chatbot</h1>", unsafe_allow_html=True)
