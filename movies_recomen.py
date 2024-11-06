@@ -7,7 +7,7 @@ st.set_page_config(page_title="Movie Recommendation Chatbot", layout="centered")
 
 # Title and intro with styling
 st.markdown("<h1 style='text-align: center; color: #FFB74D;'>🎬 Movie Recommendation Chatbot</h1>", unsafe_allow_html=True)
-st.markdown("<p style='text-align: center; font-size: 18px; color: #666;'>Tell me about your favorite genres, actors, or movies you enjoyed, and I'll recommend something you'll like!</p>", unsafe_allow_html=True)
+st.markdown("<p style='text-align: center; font-size: 18px; color: #666;'>Tell me about your favorite genres, actors, or movies, and I'll recommend something you'll love!</p>", unsafe_allow_html=True)
 
 # API key setup: Retrieve the Groq API key from environment variables
 api_key = os.getenv("GROQ_API_KEY")
@@ -24,13 +24,13 @@ def get_movie_recommendation(user_input):
         chat_completion = client.chat.completions.create(
             messages=[{
                 "role": "user",
-                "content": f"I want a movie recommendation. {user_input}",
+                "content": f"Can you recommend a movie based on this? {user_input}",
             }],
             model="llama3-8b-8192",
         )
         return chat_completion.choices[0].message.content
     except Exception as e:
-        return f"An error occurred: {e}"
+        return f"Sorry, something went wrong while fetching recommendations. Please try again later."
 
 # Store chat history in session state
 if 'chat_history' not in st.session_state:
@@ -146,8 +146,6 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-st.markdown("<br>", unsafe_allow_html=True)
-
 # Create a form for user movie preference input
 with st.form(key='recommendation_form', clear_on_submit=True):
     user_input = st.text_input("You:", placeholder="Type your favorite genre, actor, or movie here...", label_visibility="collapsed")
@@ -156,7 +154,7 @@ with st.form(key='recommendation_form', clear_on_submit=True):
 # Process the recommendation if input is provided
 if submit_button and user_input:
     with st.spinner("CineMate is finding recommendations..."):
-        # Mock function to get movie recommendations
+        # Fetch recommendation from the Groq API
         response = get_movie_recommendation(user_input)
         st.session_state.chat_history.append({"role": "user", "content": user_input})
         st.session_state.chat_history.append({"role": "bot", "content": response})
@@ -199,7 +197,6 @@ st.markdown(
     }
     </style>
     """, unsafe_allow_html=True)
-
 
 
 
