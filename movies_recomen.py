@@ -5,9 +5,24 @@ from groq import Groq
 # Configure Streamlit app settings
 st.set_page_config(page_title="Movie Recommendation Chatbot", layout="centered")
 
+# Dark theme background
+st.markdown("""
+    <style>
+        body {
+            background-color: #1E1E1E;
+            color: #FFFFFF;
+        }
+        .main {
+            background-color: #1E1E1E;
+            padding: 20px;
+            border-radius: 8px;
+        }
+    </style>
+""", unsafe_allow_html=True)
+
 # Title and intro with styling
-st.markdown("<h1 style='text-align: center; color: #FF6347;'>🎬 Movie Recommendation Chatbot</h1>", unsafe_allow_html=True)
-st.markdown("<p style='text-align: center; font-size: 18px;'>Tell me about your favorite genres, actors, or movies you enjoyed, and I'll recommend something you'll like!</p>", unsafe_allow_html=True)
+st.markdown("<h1 style='text-align: center; color: #FFB74D;'>🎬 Movie Recommendation Chatbot</h1>", unsafe_allow_html=True)
+st.markdown("<p style='text-align: center; font-size: 18px; color: #D3D3D3;'>Tell me about your favorite genres, actors, or movies you enjoyed, and I'll recommend something you'll like!</p>", unsafe_allow_html=True)
 
 # API key setup: Retrieve the Groq API key from environment variables
 api_key = os.getenv("GROQ_API_KEY")
@@ -48,42 +63,45 @@ if user_input:
     st.session_state.chat_history.append({"role": "bot", "content": response})
 
 # Display chat history
-st.markdown("<div style='height: 400px; overflow-y: auto; border: 1px solid #ddd; padding: 10px; background-color: #F9F9F9;'>", unsafe_allow_html=True)
+st.markdown("<div style='height: 400px; overflow-y: auto; border: 1px solid #555; padding: 10px; background-color: #282828; border-radius: 8px;'>", unsafe_allow_html=True)
 for message in st.session_state.chat_history:
     if message["role"] == "user":
-        st.markdown(f"<div style='text-align: right; color: #333; padding: 10px; background-color: #D3D3D3; border-radius: 10px; margin: 5px 0;'>{message['content']}</div>", unsafe_allow_html=True)
+        st.markdown(f"<div style='text-align: right; padding: 8px; background-color: #4A90E2; color: white; border-radius: 10px; margin: 5px 0; display: inline-block; max-width: 75%; float: right;'>{message['content']}</div><div style='clear: both;'></div>", unsafe_allow_html=True)
     else:
-        st.markdown(f"<div style='text-align: left; color: #333; padding: 10px; background-color: #FFDDC1; border-radius: 10px; margin: 5px 0;'>{message['content']}</div>", unsafe_allow_html=True)
+        st.markdown(f"<div style='text-align: left; padding: 8px; background-color: #FFB74D; color: black; border-radius: 10px; margin: 5px 0; display: inline-block; max-width: 75%; float: left;'>{message['content']}</div><div style='clear: both;'></div>", unsafe_allow_html=True)
 st.markdown("</div>", unsafe_allow_html=True)
 
-# Style adjustments
+# Add fixed position for input area
 st.markdown("""
-<style>
-input {
-    font-size: 16px;
-    padding: 10px;
-    width: 100%;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    margin-bottom: 10px;
-}
-.stButton button {
-    font-size: 16px;
-    background-color: #FF6347;
-    color: white;
-    padding: 8px 16px;
-    border-radius: 8px;
-    margin-top: 10px;
-}
-.stButton button:hover {
-    background-color: #FF4500;
-}
-div[data-testid="stTextInput"] label {
-    font-size: 0;
-}
-</style>
+    <style>
+        input {
+            font-size: 16px;
+            padding: 10px;
+            width: 100%;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            background-color: #2A2A2A;
+            color: #FFFFFF;
+        }
+        .stButton button {
+            font-size: 16px;
+            background-color: #FFB74D;
+            color: black;
+            padding: 8px 16px;
+            border-radius: 8px;
+            margin-top: 10px;
+            border: none;
+        }
+        .stButton button:hover {
+            background-color: #FF8C00;
+        }
+        div[data-testid="stTextInput"] label {
+            font-size: 0;
+        }
+    </style>
 """, unsafe_allow_html=True)
 
+st.markdown("<br>", unsafe_allow_html=True)
 
 
 
